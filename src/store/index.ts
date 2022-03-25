@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     parentUsername: "admin",
     parentPassword: "admin",
+    zalogowano: false,
   },
   getters: {},
   mutations: {},

@@ -2,7 +2,7 @@
   <b-container>
     <b-row class="justify-content-center vh-100" align-v="center">
       <b-col cols="3" class="pt-4">
-        <b-card title="Login">
+        <b-card title="Login" bg-cyan class="p-4">
           <b-form-input
             type="text"
             placeholder="Login"
@@ -26,9 +26,6 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 
 @Component
 export default class LoginView extends Vue {
-  user() {
-    return this.$store.state.user;
-  }
   data() {
     return {
       username: "",
