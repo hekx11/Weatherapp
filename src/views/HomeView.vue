@@ -1,8 +1,10 @@
 <template>
   <div>
-    <b-container>
+    <b-container class="pt-4">
       <b-card>
-        <b-card-title class="text-center">WeatherApp</b-card-title>
+        <template #header>
+          <h2 class="mb-0 text-center">WeatherApp</h2></template
+        >
         <b-card-body>
           <b-row>
             <b-col>
@@ -23,21 +25,29 @@
               :key="id"
             >
               <div v-if="typeof miejsc.main != 'undefined'">
-                <b-card align="center">
+                <b-card
+                  align="center"
+                  header-bg-variant="primary"
+                  border-variant="primary"
+                >
                   <template #header>
-                    <h4 class="mb-0">{{ miejsc.name }}</h4>
+                    <h3 class="mb-0 text-light">{{ miejsc.name }}</h3>
                     <b-button
                       title="Usuń"
                       class="text-right"
-                      variant="light"
+                      variant="primary"
                       @click="removeCity(id)"
                     >
-                      <b-icon icon="x-circle" variant="success"></b-icon
+                      <b-icon icon="x-circle" variant="danger"></b-icon
                     ></b-button>
                   </template>
                   <b-card-text
-                    >Temperatura: {{ miejsc.main.temp }}°C
+                    ><h4>Temperatura: {{ miejsc.main.temp }}°C</h4></b-card-text
+                  >
+                  <b-card-text>
+                    Odczuwalne: {{ miejsc.main.temp_max }}°C
                   </b-card-text>
+                  <b-card-text>Wiatr: {{ miejsc.wind.speed }}m/s</b-card-text>
                 </b-card>
               </div>
             </b-col>
@@ -91,4 +101,8 @@ export default class HomeView extends Vue {
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+@import "@/assets/scss/vendors/bootstrap-vue/_custom.scss";
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~bootstrap-vue/dist/bootstrap-vue.css";
+</style>
