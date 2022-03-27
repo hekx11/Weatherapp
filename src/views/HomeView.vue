@@ -15,11 +15,29 @@
               ></b-form-input
             ></b-col>
           </b-row>
-          <b-row class="py-4">
-            <b-col cols="4" v-for="(miejsc, id) in miejscowosci" :key="id">
-              <div v-if="typeof miejsc.name != 'undefined'">
-                <b-card :header="miejsc.name">
-                  <b-card-text> {{ miejsc.main.temp }}°C </b-card-text>
+          <b-row class="pt-4">
+            <b-col
+              cols="4"
+              class="pt-4"
+              v-for="(miejsc, id) in miejscowosci"
+              :key="id"
+            >
+              <div v-if="typeof miejsc.main != 'undefined'">
+                <b-card align="center">
+                  <template #header>
+                    <h4 class="mb-0">{{ miejsc.name }}</h4>
+                    <b-button
+                      title="Usuń"
+                      class="text-right"
+                      variant="light"
+                      @click="removeCity(id)"
+                    >
+                      <b-icon icon="x-circle" variant="success"></b-icon
+                    ></b-button>
+                  </template>
+                  <b-card-text
+                    >Temperatura: {{ miejsc.main.temp }}°C
+                  </b-card-text>
                 </b-card>
               </div>
             </b-col>
@@ -43,15 +61,22 @@ export default class HomeView extends Vue {
       miejscowosci: [],
     };
   }
-  getWeather(e: KeyboardEvent) {
-    if (e.key == "Enter") {
+  getWeather(k: KeyboardEvent) {
+    if (k.key == "Enter") {
       fetch(
         `${this.$data.url}weather?q=${this.$data.zapytanie}&units=metric&APPID=${this.$store.state.api_key}`
       )
         .then((res) => {
-          return res.json();
+          if (res.status == 200) {
+            this.$data.zapytanie = "";
+            return res.json();
+          } else {
+            this.$data.zapytanie = "";
+            throw new Error("Błąd");
+          }
         })
-        .then(this.setResults);
+        .then(this.setResults)
+        .catch((error) => console.error("Niepoprawna nazwa miasta"));
     }
   }
   setResults(data: string) {
@@ -59,6 +84,9 @@ export default class HomeView extends Vue {
     if (typeof this.$data.pogoda.main != undefined) {
       this.$data.miejscowosci.push(data);
     }
+  }
+  removeCity(index: any) {
+    this.$data.miejscowosci.splice(index, 1);
   }
 }
 </script>
