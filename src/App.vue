@@ -28,8 +28,10 @@ export default class App extends Vue {
 <style lang="scss">
 @import "~@/assets/scss/vendors/bootstrap-vue/index";
 @import "~@/assets/scss/vendors/bootstrap-vue/index";
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
